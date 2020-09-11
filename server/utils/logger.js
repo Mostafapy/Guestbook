@@ -26,14 +26,14 @@ const createLogger = (moduleName) => {
    logger.log = (message, metaData= {}) => {
     const date= new Date();
 
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.ENV !== 'test') {
       console.log(
         JSON.stringify({
           name: moduleName,
           message,
           level: 'log',
           formattedDate: date.toISOString(),
-          env: process.env.NODE_ENV,
+          env: process.env.ENV,
           processId: process.pid,
           timestamp: date.getTime(),
           metaData: _prepareMetaData(metaData),
@@ -47,14 +47,14 @@ const createLogger = (moduleName) => {
   logger.error = (message, metaData= {}) => {
     const date = new Date();
 
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.ENV !== 'test') {
       console.error(
         JSON.stringify({
           name: moduleName,
           message,
           level: 'error',
           formattedDate: date.toISOString(),
-          env: process.env.NODE_ENV,
+          env: process.env.ENV,
           processId: process.pid,
           timestamp: date.getTime(),
           metaData: _prepareMetaData(metaData),
