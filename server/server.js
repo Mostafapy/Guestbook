@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const logger = require('./utils/logger')('APP');
+const routes = require('./routes/api/index');
 
 // DB
 const connectDB = require('./config/db');
@@ -41,6 +42,9 @@ if (process.env.ENV === 'development') {
        ),
     );
 }
+
+// Mount the routes
+app.use(routes);
 
 // use port from environment variables for production
 const port = process.env.PORT || 5000;
