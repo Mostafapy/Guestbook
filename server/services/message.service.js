@@ -43,7 +43,7 @@ const getMessages = async () => {
  * @param {String} messageText
  * @returns {Promise | Error}
  */
-const updateMessage = async (id) => {
+const updateMessage = async (id, messageText) => {
     try {
       const message = await messageModel.findById(id);
   
