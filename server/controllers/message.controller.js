@@ -133,7 +133,7 @@ const updateMessageById = async (req, res) => {
 module.exports = {
   addMessage,
   retrieveAllMessages,
-  deleteMessage,
+  deleteMessageById,
   addReplyForMessage,
   updateMessageById,
 };
