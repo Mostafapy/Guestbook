@@ -6,4 +6,4 @@ const retrieveUser = (email) => new Promise((resolve, reject) => {
       }).then(user => resolve(user)).catch(err => reject(err))
 });
 
-module.exports = retrieveUser;
+module.exports = { retrieveUser };
