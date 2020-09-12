@@ -2,7 +2,7 @@
 const UserModel = require('./../models/user.model');
 
 /* Services */
-const retrieveUserService = require('./../services/retrieveUser.service');
+const userService = require('../services/user.service');
 
 const logger = require('./../utils/logger')('Controllers:AuthController');
 const bcrypt = require('bcrypt');
@@ -16,7 +16,7 @@ const userRegistration = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-      const retrievedUser = await retrieveUserService(email);
+      const retrievedUser = await userService.retrieveUser(email);
 
       if (retrievedUser) {
         return res.status(400).json({
@@ -57,7 +57,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    const retrievedUser = await retrieveUserService(email);
+    const retrievedUser = await userService.retrieveUser(email);;
 
     if (!retrievedUser) {
         return res.status(400).json({
