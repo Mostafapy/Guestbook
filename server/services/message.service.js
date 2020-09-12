@@ -6,7 +6,7 @@ const messageModel = require('../models/message.model');
  * @param {String} messageText
  * @returns {Promise | Error}
  */
-const createMessage = async (userId, messageText) => {
+const addMessage = async (userId, messageText) => {
   try {
     const user = await userService.retrieveUserById(userId);
 
@@ -108,7 +108,7 @@ const addReply = async (userId, messageId, replyText) => {
 };
 
 module.exports = {
-  createMessage,
+  addMessage,
   getMessages,
   updateMessage,
   deleteMessage,
