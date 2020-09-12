@@ -16,7 +16,7 @@ const userRegistration = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-      const retrievedUser = await userService.retrieveUser(email);
+      const retrievedUser = await userService.retrieveUserByEmail(email);
 
       if (retrievedUser) {
         return res.status(400).json({
@@ -57,7 +57,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    const retrievedUser = await userService.retrieveUser(email);;
+    const retrievedUser = await userService.retrieveUserByEmail(email);;
 
     if (!retrievedUser) {
         return res.status(400).json({
