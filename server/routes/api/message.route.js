@@ -4,13 +4,16 @@ const { addMessage,
        retrieveAllMessages, 
        deleteMessageById, 
        updateMessageById, 
-       addReplyForMessage 
+       addReplyForMessage,
+       isSecret,
+       manageMessage,
+       verifyOwnerOfMessage
       } = require('../../controllers/message.controller');
 
 const router = express.Router();
 
 // @desc Add new message
-// @route POST /api/message/addMessage
+// @route POST /api/v1/message/addMessage
 // @access Private
 router.post(
   '/addMessage',
@@ -19,18 +22,18 @@ router.post(
 );
 
 // @desc Retrieve all messages
-// @route GET /api/message/retrieveAllMessages
+// @route GET /api/v1/message/retrieveAllMessages
 // @access Private
 router.get('/retrieveAllMessages', authenticationMiddleware, retrieveAllMessages);
 
 // @desc Delete message by id
-// @route DELETE api/message/deleteMessage/:messageId
+// @route DELETE /api/v1/message/deleteMessage/:messageId
 // @access Private
 router.delete('/deleteMessage/:messageId', authenticationMiddleware, deleteMessageById);
 
 
 // @desc Add reply for message
-// @route POST api/message/reply/:messageId
+// @route POST /api/v1/message/reply/:messageId
 // @access Private
 router.post(
   '/reply/:messageId',
@@ -39,12 +42,27 @@ router.post(
 );
 
 // @desc Update message by id
-// @route PUT api/message/updateMessage/:messageId
+// @route PUT /api/v1/message/updateMessage/:messageId
 // @access Private
 router.put(
   '/updateMessage/:messageId',
   authenticationMiddleware,
   updateMessageById,
 );
+
+// @desc verify that the message is secured
+// @route GET /api/v1/v1/message/secret
+// @access Private
+router.get('/secret', authenticationMiddleware, isSecret);
+
+// @desc manage the message for user
+// @route GET /api/v1/message/manage
+// @access Private
+router.get('/manage', authenticationMiddleware, manageMessage);
+
+// @desc verify the owner of this message
+// @route GET /api/v1/message/:id/verify-user
+// @access Private
+router.get('/:id/verify-user', authenticationMiddleware, verifyOwnerOfMessage);
 
 module.exports = router;
