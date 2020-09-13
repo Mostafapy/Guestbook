@@ -1,8 +1,9 @@
+const messageModel = require('../models/message.model');
 const messageService = require('./../services/message.service');
 const logger = require('../utils/logger')('Controllers:MessageController');
 
 // @desc Add new message
-// @route POST /api/message/addMessage
+// @route POST /api/v1/message/addMessage
 // @access Private
 const addMessage = async (req, res) => {
   try {
@@ -21,7 +22,7 @@ const addMessage = async (req, res) => {
 };
 
 // @desc Retrieve all messages
-// @route GET /api/message/retrieveAllMessages
+// @route GET /api/v1/message/retrieveAllMessages
 // @access Private
 const retrieveAllMessages = async (_req, res) => {
   try {
@@ -72,7 +73,7 @@ const deleteMessageById = async (req, res) => {
 };
 
 // @desc Add reply for message
-// @route POST api/message/reply/:messageId
+// @route POST api/v1/message/reply/:messageId
 // @access Private
 const addReplyForMessage = async (req, res) => {
   try {
@@ -95,7 +96,7 @@ const addReplyForMessage = async (req, res) => {
 };
 
 // @desc Update message by id
-// @route PUT api/message/updateMessage/:messageId
+// @route PUT api/v1/message/updateMessage/:messageId
 // @access Private
 const updateMessageById = async (req, res) => {
     try {
@@ -130,10 +131,76 @@ const updateMessageById = async (req, res) => {
     }
 };
 
+// @desc verify that the message is secured
+// @route GET /api/v1/message/secret
+// @access Private
+const isSecret = (req, res) => {
+  res.json({
+    success: true,
+    msg: `Success`,
+    data: { secret: true },
+  });
+}
+
+// @desc manage the message for user
+// @route GET /api/v1/message/manage
+// @access Private
+const manageMessage = async (req, res) => {
+  try {
+    const { user } = req;
+
+    const foundMessage = await messageModel.where({ user }).exec();
+
+    return res.status(200).json({
+      success: true,
+      msg: 'Successfully found message for this user managed',
+      data: { foundMessage }
+  });
+
+  } catch (err) {
+    logger.error('manageMessage', err.message);
+
+    return res.status(500).json({ success: false, msg: 'Server Error', data: null });
+  }
+}
+
+// @desc verify the owner of this message
+// @route GET /api/v1/message/:id/verify-user
+// @access Private
+const verifyOwnerOfMessage = async (req, res) => {
+  try {
+    const { user } = req;
+
+    const foundMessage = await messageModel.findById(req.params.id).populate('user');
+
+    if (foundMessege.user.id !== user.id) {
+      return res.status(422).json({
+         success: false,
+         msg: 'Invalid User! You are not messege owner',
+         data: null
+      })
+    }
+
+    return res.status(200).json({
+      success: true,
+      msg: 'Verified user',
+      data: { status: 'verified' }
+  });
+
+  } catch (err) {
+    logger.error('verifyOwnerOfMessage', err.message);
+
+    return res.status(500).json({ success: false, msg: 'Server Error', data: null });
+  }
+}
+
 module.exports = {
   addMessage,
   retrieveAllMessages,
   deleteMessageById,
   addReplyForMessage,
   updateMessageById,
+  isSecret,
+  manageMessage,
+  verifyOwnerOfMessage,
 };
