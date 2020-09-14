@@ -7,7 +7,8 @@ const { addMessage,
        addReplyForMessage,
        isSecret,
        manageMessage,
-       verifyOwnerOfMessage
+       verifyOwnerOfMessage,
+       getMessageById
       } = require('../../controllers/message.controller');
 
 const router = express.Router();
@@ -65,4 +66,8 @@ router.get('/manage', authenticationMiddleware, manageMessage);
 // @access Private
 router.get('/:id/verify-user', authenticationMiddleware, verifyOwnerOfMessage);
 
+// @desc Get message by id
+// @route GET /api/v1/message/:id
+// @access Private
+router.get('/:id', authenticationMiddleware, verifyOwnerOfMessage);
 module.exports = router;
