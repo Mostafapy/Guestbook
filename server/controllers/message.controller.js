@@ -176,7 +176,7 @@ const verifyOwnerOfMessage = async (req, res) => {
     if (foundMessage.user.id !== user.id) {
       return res.status(422).json({
          success: false,
-         msg: 'Invalid User! You are not messege owner',
+         msg: 'Invalid User! You are not message owner',
          data: null
       })
     }
