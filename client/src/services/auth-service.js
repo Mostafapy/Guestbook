@@ -28,7 +28,7 @@ class AuthService {
   }
 
   getUsername() {
-    return this.decode(this.getToken()).name;
+    return this.decode(this.getToken()).username;
   }
 
   isValid(token) {
