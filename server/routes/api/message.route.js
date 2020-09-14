@@ -62,9 +62,9 @@ router.get('/secret', authenticationMiddleware, isSecret);
 router.get('/manage', authenticationMiddleware, manageMessage);
 
 // @desc verify the owner of this message
-// @route GET /api/v1/message/:id/verify-user
+// @route GET /api/v1/message/:id/verifyUser
 // @access Private
-router.get('/:id/verify-user', authenticationMiddleware, verifyOwnerOfMessage);
+router.get('/:id/verifyUser', authenticationMiddleware, verifyOwnerOfMessage);
 
 // @desc Get message by id
 // @route GET /api/v1/message/:id
