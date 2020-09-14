@@ -81,6 +81,7 @@ const login = async (req, res) => {
     const payload = {
       user: {
         id: retrievedUser.id,
+        username: retrievedUser.name,
       },
     };
 
