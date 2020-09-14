@@ -173,7 +173,7 @@ const verifyOwnerOfMessage = async (req, res) => {
 
     const foundMessage = await messageModel.findById(req.params.id).populate('user');
 
-    if (foundMessege.user.id !== user.id) {
+    if (foundMessage.user.id !== user.id) {
       return res.status(422).json({
          success: false,
          msg: 'Invalid User! You are not messege owner',
@@ -194,6 +194,33 @@ const verifyOwnerOfMessage = async (req, res) => {
   }
 }
 
+// @desc Get message by id
+// @route GET /api/v1/message/:id
+// @access Private
+const getMessageById = async (req, res) => {
+  try {
+    const foundMessage= await messageModel.findById(req.params.id).populate('user');
+
+    return res.status(200).json({
+      success: true,
+      msg: 'Successfully found message for this user',
+      data: { foundMessage }
+   });
+
+  } catch (err) {
+    logger.error('getMessageById', err.message);
+
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({
+        success: false,
+        msg: 'Message is not found',
+        data: null,
+      });
+    }
+
+    return res.status(500).json({ success: false, msg: 'Server Error', data: null });
+  }
+}
 module.exports = {
   addMessage,
   retrieveAllMessages,
@@ -203,4 +230,5 @@ module.exports = {
   isSecret,
   manageMessage,
   verifyOwnerOfMessage,
+  getMessageById
 };
