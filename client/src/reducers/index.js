@@ -2,7 +2,7 @@
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 
-import { messageReducer, selectedMessageReducer } from './messege-reducer';
+import { messageReducer, selectedMessageReducer } from './message-reducers';
 import { authReducer } from './auth-reducers';
 import { reducer as formReducer } from 'redux-form';
 
