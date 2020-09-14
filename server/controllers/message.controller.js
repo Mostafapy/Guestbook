@@ -165,7 +165,7 @@ const manageMessage = async (req, res) => {
 }
 
 // @desc verify the owner of this message
-// @route GET /api/v1/message/:id/verify-user
+// @route GET /api/v1/message/:id/verifyUser
 // @access Private
 const verifyOwnerOfMessage = async (req, res) => {
   try {
