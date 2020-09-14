@@ -29,10 +29,10 @@ const fetchMessageByIdInit = () => {
   }
 }
 
-const fetchMessageByIdSuccess = (messege) => {
+const fetchMessageByIdSuccess = (message) => {
   return {
     type: FETCH_MESSAGE_BY_ID_SUCCESS,
-    messege
+    message
   }
 }
 
@@ -96,7 +96,7 @@ export const resetMessageErrors = () => {
 const updateMessageSuccess = (updatedMessage) => {
     return {
       type: UPDATE_MESSAGE_SUCCESS,
-      messege: updatedMessage
+      message: updatedMessage
     }
 }
   
